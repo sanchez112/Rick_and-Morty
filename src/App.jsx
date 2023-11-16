@@ -14,23 +14,32 @@ function App() {
    const [characters, setCharacters] = useState([]);
    
    function onSearch(id) {
+      const characterId = characters.filter(
+         char => char.id === Number(id)
+      )
+      if (characterId.length){
+         return alert(`El personaje con Id ${id} ya existe!`)
+      }
       axios(`${URL}/${id}?key=${API_KeY}`).then(
          ({ data }) => {
              if (data.name) {
                console.log(data)
                   setCharacters([...characters, data]);
              } else {
-                  window.alert('¡No hay personajes con este ID!');
+                  window.alert('¡No hay personajes con este ID!.hay 826 personajes en total.');
              }
           }
       );
+   }
+   const onClose = id => {
+      setCharacters(characters.filter(char => char.id !== Number(id)));
    }
    return (
       <div className='App'>
          
          <Nav onSearch={(onSearch) } />
          <hr />
-         <Cards characters={characters} />
+         <Cards characters={characters} onClose={onClose} />
       </div>
    );
 }
