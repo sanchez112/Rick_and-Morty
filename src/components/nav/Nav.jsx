@@ -1,11 +1,10 @@
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../searchbar/SearchBar";
 
-export default function Nav({onSearch}) {
-    // console.log(onSearch)
-    return (
-       <div>
-          <SearchBar onSearch={onSearch}/>
-       </div>
-    );
- }
- 
+export default function Nav(props) {
+
+  return (
+     <div>
+        <SearchBar onSearch={props.onSearch} />
+     </div>
+  );
+}
