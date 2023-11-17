@@ -1,18 +1,18 @@
-import Random_botton from "../Random botton/Random_botton";
+import { NavLink } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 
 export default function Nav(props) {
 
   return (
-     <div
-     style={{
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "space-evenly"
-   }}
-     >
+     <div>
+         <NavLink to="/home">
+            <button>Home</button>
+         </NavLink>
+         <NavLink to="/about">
+            <button>About</button>
+         </NavLink>
+         <hr />
         <SearchBar onSearch={props.onSearch} />
-        <Random_botton/>
      </div>
   );
 }
