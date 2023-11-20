@@ -1,6 +1,6 @@
 
-import { useState } from 'react';
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import './App.css';
 import Cards from './components/cards/Cards.jsx';
 import Nav from './components/nav/Nav.jsx';
@@ -8,15 +8,36 @@ import axios from "axios";
 import About from './components/about/About.jsx';
 import Detail from './components/detail/Detail.jsx';
 import NotFound from './components/notfound/NotFound.jsx';
+import Form from './components/form/Form.jsx';
 
 const URL = "https://rym2.up.railway.app/api/character";
 const API_KEY = "henrystaff";
 
+
 function App() {
-   
+   //*login
+   const [access, setAccess] = useState(false);
+   const EMAIL = 'ejemplo@gmail.com';
+   const PASSWORD = '123456';
+
+   function login(userData) {
+      if (userData.password === PASSWORD && userData.email === EMAIL) {
+         setAccess(true);
+         navigate('/home');
+      }else{
+         alert("Credenciales incorrect")
+      }
+   }
+   function logout(){
+      setAccess(false)
+   }
+   useEffect(() => {
+      !access && navigate('/');
+   }, [access]);
    const [characters, setCharacters] = useState([]);
 
    const navigate = useNavigate();
+   const location = useLocation();
 
    function onSearch(id) {
       const characterId = characters.filter(
@@ -39,18 +60,22 @@ function App() {
       navigate("/home");
    }
 
-   //* characters [ {id:1, name:"Rick"}, {id:2, name:"Morty"} ]
-   //* id: "2" => character.id === id
-   //* [ {id: 1, name:"Rick"} ]
-
    const onClose = id => {
       setCharacters(characters.filter(char => char.id !== Number(id)))
    }
 
    return (
       <div className='App'>
-         <Nav onSearch={onSearch} />
+         {
+            location.pathname !== "/" && <Nav onSearch={onSearch} logout={logout} />
+         }
+         
          <Routes>
+            <Route 
+            path="/"
+            element={<Form login={login}/>}
+
+            />
             <Route 
                path="/home"
                element={<Cards characters={characters} onClose={onClose} />}
@@ -67,6 +92,7 @@ function App() {
                path="*"
                element={<NotFound />}
             />
+            
          </Routes>
          <hr />
       </div>

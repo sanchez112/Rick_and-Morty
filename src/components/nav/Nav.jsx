@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 
-export default function Nav(props) {
+export default function Nav({logout,onSearch}) {
 
   return (
      <div>
@@ -11,8 +11,12 @@ export default function Nav(props) {
          <NavLink to="/about">
             <button>About</button>
          </NavLink>
+         
+         <button onClick={logout}>Logout x</button>
+         
+
          <hr />
-        <SearchBar onSearch={props.onSearch} />
+        <SearchBar onSearch={onSearch} />
      </div>
   );
 }
