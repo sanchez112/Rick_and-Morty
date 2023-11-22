@@ -5,6 +5,9 @@ export default function Nav({logout,onSearch}) {
 
   return (
      <div>
+         <NavLink to="/favorites">
+            <button>favorites</button>
+         </NavLink>
          <NavLink to="/home">
             <button>Home</button>
          </NavLink>
