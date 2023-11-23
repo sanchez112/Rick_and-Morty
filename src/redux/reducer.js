@@ -22,6 +22,7 @@ export default function reducer(state = initialState, { type, payload }) {
         myFavorites: [...state.allCharacters, payload]
       }
     }
+
     case REMOVE_FAV: {
       const filteredFavs = state.allCharacters.filter(
         favorite => favorite.id !== Number(payload)
@@ -32,6 +33,7 @@ export default function reducer(state = initialState, { type, payload }) {
         myFavorites: filteredFavs
       }
     }
+
     case FILTER:{
       //* { type: FILTER, payload: "FEMALE" }
       if(payload === "All") return {
@@ -46,6 +48,7 @@ export default function reducer(state = initialState, { type, payload }) {
         myFavorites: filteredFavs
       }
     }
+    
     case ORDER:
       const orderCopy = [...state.myFavorites];
       if(payload === "A")
