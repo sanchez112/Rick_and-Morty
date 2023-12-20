@@ -32,9 +32,9 @@ export default function Form({login}) {
 
   return (
     <div>
-        <form>
             <img src = {banner}
             style={{width: "300px"}} alt="New" />
+        <form>
 
             <label >Email: </label>
             <input type="text"
