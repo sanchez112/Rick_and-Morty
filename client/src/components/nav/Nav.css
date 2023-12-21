@@ -1,0 +1,25 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ajusta según sea necesario para superponer sobre otros elementos */
+    background-color:#242424;
+    box-shadow: 0px 2px 10px #155225;
+    padding: 10px 10px;
+    padding-left: 10px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 10px;
+    
+  }
+  .search-nav{
+    margin-right: 22px;
+  }
+ 
+  
+
