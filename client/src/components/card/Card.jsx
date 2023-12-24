@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addFav, removeFav } from "../../redux/actions";
+import "./card.css"
 
 export default function Card(props) {
    //* props = { id, name, status, ... } => character
@@ -28,31 +29,30 @@ export default function Card(props) {
     }, [myFavorites]);
 
    return (
-      <div
-         style={{
-            backgroundColor: "grey",
-            margin: "20px",
-            padding: "20px",
-            borderRadius: "15px",
-         }}
-      >
-         {
-            isFav ? (
-               <button onClick={handleFavorite}>❤️</button>
-            ) : (
-               <button onClick={handleFavorite}>🤍</button>
-            )
-         }
-         <button onClick={() => props.onClose(props.id)}>X</button>
-         <h2>{props.name}</h2>
-         <h4>Id: {props.id}</h4>
-         <h4>Status: {props.status}</h4>
-         <h4>Specie: {props.species}</h4>
-         <h4>Gender: {props.gender}</h4>
-         <h4>Origin: {props.origin}</h4>
+      <div class = "card">
+         <div class ="container-buttom">
+            {
+               isFav ? (
+                  <button class= "fav"onClick={handleFavorite}>❤️</button>
+               ) : (
+                  <button class= "no-fav" onClick={handleFavorite}>🤍</button>
+               )
+            }
+            <button class= "delte" onClick={() => props.onClose(props.id)}>X</button>
+         </div>
+         <div>
+            <h2>{props.name}</h2>
+            <h4>Id: {props.id}</h4>
+            <h4>Status: {props.status}</h4>
+            <h4>Specie: {props.species}</h4>
+            <h4>Gender: {props.gender}</h4>
+            {/* <h4>Origin: {props.origin}</h4> */}
+         </div>
+
          <Link to={`/detail/${props.id}`} >
-            <img src={props.image} alt={props.name} />
+            <img class= "img-card" src={props.image} alt={props.name} />
          </Link>
+
       </div>
    );
 }

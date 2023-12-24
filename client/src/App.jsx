@@ -118,7 +118,7 @@ function App() {
             />
             
          </Routes>
-         <hr />
+         
       </div>
    );
 }

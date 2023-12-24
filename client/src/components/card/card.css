@@ -1,0 +1,26 @@
+.card{
+    background-color: grey;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+}
+.img-card{
+    border-radius: 200px;
+}
+.delete{
+
+}
+.fav{
+    
+    margin-right: auto;
+}
+
+.no-fav{
+    margin-right: auto;
+}
+.container-buttom{
+    display: flex;
+    
+}
+
+

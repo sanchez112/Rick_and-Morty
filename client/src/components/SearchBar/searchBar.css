@@ -2,3 +2,12 @@
     display: flex;
     gap: 20px;
 }
+.bar{
+    color: var(--input-text-color);
+    width: 100%;
+    
+    /* background-color:#177e2f; */
+    border-color: #177e2f;
+    border-radius: 20px;
+      
+}

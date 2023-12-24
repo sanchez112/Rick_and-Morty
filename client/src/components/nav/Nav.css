@@ -6,7 +6,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Ajusta según sea necesario para superponer sobre otros elementos */
+    z-index: 3; /* Ajusta según sea necesario para superponer sobre otros elementos */
     background-color:#242424;
     box-shadow: 0px 2px 10px #155225;
     padding: 10px 10px;

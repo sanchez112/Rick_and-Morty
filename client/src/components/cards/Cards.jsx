@@ -1,18 +1,12 @@
 import Card from "../card/Card.jsx";
-
+import "./cards.css"
 
 export default function Cards({ characters, onClose }) {
    // console.log(characters);
    //* props = { characters: [ --- ] }
    //* characters = [ {R}, {M}, {B}, {S} ]
    return (
-      <div
-         style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-evenly"
-         }}
-      >
+      <div class = "cards">
          {
             characters.map(character => (
                <Card
