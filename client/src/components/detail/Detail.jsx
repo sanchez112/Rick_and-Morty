@@ -31,16 +31,18 @@ export default function Detail(props) {
       <div class = "detail-name">
          <h2>{character.name}</h2>
       </div>
-      <div class = "detail-image">
-         <img src={character.image} alt={character.name} />
+      <div class = "">
+         <div class = "detail-image">
+            <img src={character.image} alt={character.name} />
+         </div>
+         <div class = "detail-character">
+            <h3>Status: {character.status}</h3>
+            <h3>Specie: {character.species}</h3>
+            <h3>Gender: {character.gender}</h3>
+            <h3>Origin: {character.origin?.name}</h3>
+            <h3>Location: {character.location?.name}</h3>
+         </div>      
       </div>
-      <div class = "detail-character">
-         <h3>Status: {character.status}</h3>
-         <h3>Specie: {character.species}</h3>
-         <h3>Gender: {character.gender}</h3>
-         <h3>Origin: {character.origin?.name}</h3>
-         <h3>Location: {character.location?.name}</h3>
-      </div>      
    </div>
   );
 }
