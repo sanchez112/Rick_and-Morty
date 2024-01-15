@@ -1,8 +1,8 @@
-# **💪 HW2 | Web Server - Integration**
+# **💪 HW3 | Sequelize Part 2 - Integration**
 
 ## **🕒 DURACIÓN ESTIMADA**
 
-90 minutos
+XX minutos
 
 <br />
 
@@ -16,115 +16,183 @@
 
 ## **📝 INTRODUCCIÓN**
 
-Hasta este momento hemos construido una Single Page Aplication por el lado del Front-End. Ahora llego la hora de construir un servidor que nos permita realizar acciones y comunicar información a nuestra App.
+En esta homework nos encargaremos de terminar de integrar una base de datos en nuestro proyecto de Rick and Morty componiendo nuevos controladores.
 
-En esta homework vamos a estructurar nuestro proyecto por el lado del Back-End, crear nuestro primer servidor y conectar Front-End con este.
-
-<br />
+</br >
 
 ---
 
 ## **📋 INSTRUCCIONES**
 
-### **👩‍💻 EJERCICIO 1 | Estructuración**
+Para esta primera homework ya no necesitaremos algunos archivos y carpetas, por lo que te invitamos a eliminar los siguiente:
 
-Dirígete al directorio en el que tienes tu proyecto **`Rick & Morty`** y ábrelo en tu VSC.
+-  Caperta **`utils`** con todo lo que tiene dentro.
+-  Archivo **`/controllers/handleFavorites.js`**.
+-  Archivo **`/controllers/login.js`**.
 
-1. En la raíz de tu proyecto crea una carpeta llamada **`Client`**. Todo el contenido trabajado durante el Módulo 2 guárdalo dentro de esta carpeta.
+<br />
 
-2. Crea una segunda carpeta al mismo nivel **`Server`**. Dentro de esta crea una carpeta con el nombre **src** y otra con el nombre **test**.
+### **👩‍💻 EJERCICIO 01 | POST USER**
 
-3. Dentro de la carpeta **src** crea lo siguiente:
+Dirígete a tu carpeta **controllers**:
 
-   -  Un archivo llamado **`index.js`**.
-   -  Una carpeta llamada **`controllers`**.
-   -  Una carpeta llamada **`routes`**.
-   -  Una carpeta llamada **`utils`**.
+1. Crea un nuevo archivo con el nombre **`postUser.js`**.
 
-4. Copia el archivo [**data.js**](./data.js) que se encuentra en esta carpeta y pégalo dentro de tu pryecto en la carpeta **utils**.
+2. Dentro de este archivo tendrás que importar tu modelo **User**.
+
+> [**NOTA**]: deberás importar este modelo de tu archivo **`DB_connection`** ya que desde allí está activo dentro de tu base de datos.
+
+3. Crea una función llamada **`postUser`** y expórtala. Esta función debe recibir por parámetro los objetos **`req`** y **`res`**. Además, esta función es asincrónica, ¡por lo que deberás trabajar con promesas o async await!
+
+4. Dentro de la función deberás recibir un **email** y una **password** por **`Body`**.
+
+5. Una vez recibido, deberás validar que realmente hayas recibido ambos y que no sean, por ejemplo, un string vacío. En el caso de no recibir alguno de los dos deberás responder con un **`status 400`** y devolver un mensaje que diga: **"_Faltan datos_"**.
+
+6. En el caso de si recibir ambos datos deberás guardarlos dentro de tu modelo. Una vez realizado responde con el usuario guardado.
+
+> [**NOTA**]: puedes utilizar el método **`findOrCreate`**.
+
+> [**NOTA**]: en el caso de haber un error responde con **`status 500`** y el mensaje del error.
+
+</br>
+
+---
+
+### **👩‍💻 EJERCICIO 02 | LOGIN**
+
+Ahora si crearemos un controlador que valide la información de nuestra base de datos. Elimina por completo la carpeta **utils**.
+
+1. Crea un archivo llamado **`login.js`**. Dentro de este archivo deberás importar tu modelo **User**.
+
+2. Crea una función llamada **`login`** la cual reciba por parámetro los objetos **`req`** y **`res`**. No olvides exportarla.
+
+3. Recibiras por **`Query`** los datos **email** y **password**.
+
+4. En el caso de no recibir alguno de los datos, responde con un **`status 400`** y el mensaje **"_Faltan datos_"**.
+
+5. Si ambos datos llegan correctamente tendrás que buscar aquel usuario que tenga el mismo email que recibiste anteriormente. En el caso de no encontrarlo responde con un **`status 404`** y el mensaje **"_Usuario no encontrado_"**.
+
+6. En el caso de encontrar a un usuario con ese mismo email solo tendrás ahora que comparar si su **password** es igual a la **password** que recibiste anteriormente. En el caso de no serlo responde con un **`status 403`** y un mensaje que diga **"_Contraseña incorrecta_"**.
+
+7. En el caso de que las contraseñas si coincidan, responde con el objeto:
+
+```js
+{
+   access: true;
+}
+```
+
+> [**NOTA**]: en el caso de haber un error responde con **`status 500`** y el mensaje del error.
+
+</br>
+
+---
+
+### **👩‍💻 EJERCICIO 03 | POST FAV**
+
+1. Crea un nuevo archivo llamado **`postFav.js`**. Dentro de este archivo deberás importar tu modelo **Favorite**.
+
+2. Crea una función llamada **`postFav`** la cual reciba por parámetro los objetos **`req`** y **`res`**.
+
+3. Deberás recibir las propiedades **name**, **origin**, **status**, **image**, **species** y **gender** por **`Body`**.
+
+4. Valida que todos los datos estén llegando correctamente. Caso contrario responde con un **`status 401`** y el mensaje **"_Faltan datos_"**.
+
+5. Si todos los datos llegan como corresponde, guarda tu personaje en la base de datos.
+
+6. Una vez guardado, busca todos los personajes favoritos guardados en tu base de datos y responde con ese arreglo.
+
+> [**NOTA**]: puedes utilizar el método **`findOrCreate`**.
+
+> [**NOTA**]: en el caso de haber un error responde con **`status 500`** y el mensaje del error.
+
+</br>
+
+---
+
+### **👩‍💻 EJERCICIO 04 | DELETE FAV**
+
+1. Crea un nuevo archivo con el nombre **`deleteFav.js`**. Dentro de este archivo tendrás que importar tu modelo **Favorite**.
+
+2. Crea una función con el nombre **`deleteFav`** y expórtala. Esta función debes recibir por parámetro los objetos **`req`** y **`res`**.
+
+3. Recibirás un **id** por parámetro. Tendrás que eliminar este personaje de tu tabla de favoritos.
+
+4. Finalmente responde con una arreglo que contenga a todos tus personajes favoritos.
+
+> [**NOTA**]: puedes utilizar el query: **`destroy`**.
+
+> [**NOTA**]: en el caso de haber un error responde con **`status 500`** y el mensaje del error.
+
+</br>
+
+---
+
+### **👩‍💻 EJERCICIO 05 | Update routes**
+
+Dirígete a tu archivo **`/routes/index.js`**. Dentro de este tendrás que importar tus nuevos controladores y aplicarlos en las rutas correspondientes. Las nuevas rutas deben ser las siguientes:
+
+-  **GET** **`/login`**
+-  **POST** **`/login`**
+-  **POST** **`/fav`**
+-  **DELETE** **`/fav/:id`**
+
+> [**NOTA**]: la única ruta que no se modifica es **`getCharById`**.
+
+</br>
+
+---
+
+### **👩‍💻 EJERCICIO 06 | Usuario de prueba**
+
+Antes de ir a probar nuestra aplicación tendremos que crear un usuario en nuestra base de datos.
+
+Lo normal es que en nuestro Front-End exista un formulario **`sign up`** o **`registrate`**, pero nosotros no tenemos un (aún 😏).
+
+Tendremos que crear un usuario manualemente. Para esto abre tu **Cliente API** favorito. Puede ser, por ejemplo:
+
+-  [**Thunder Client**](https://www.thunderclient.com/)
+-  [**Insomnia**](https://www.postman.com/)
+-  [**Postman**](https://insomnia.rest/download)
+
+1. Has un request de tipo **POST** a la ruta **`http://localhost:3001/rickandmorty/login`**.
+
+2. Tendrás que enviar por **BODY** los datos: **`email`** y **`password`**.
+
+</br>
+
+---
+
+<div align="center">
+
+## **😁 ¡FELICITACIONES! 😁**
+
+</div>
+
+😎 Acabas de finalizar la homework integradora del bootcamp. Tu aplicación está lista para ser utilizada.
+
+🤓 Por supuesto que hay muchas cosas que se pueden mejorar y cosas nuevas que se pueden crear. Con todo lo que has aprendido hasta ahora ya eres capaz de continuar, con un poco de esfuerzo y autonomía, mejorando este proyecto.
+
+🔎 Ahora queremos invitarte a que hagas un deploy de tu proyecto. Te compartimos nuestra cápsula de deploy...
+
+<div align="center">
+   <a href="https://rise.articulate.com/share/YKtorcVy0_ch_T7ETfudX4olPcYcXE6o#/">
+      <img src="./logo.png" alt="" width="50%" style="border-radius: 20vw;" />
+   </a>
+</div>
+
+> [**NOTA**]: has click sobre la imagen.
+
+</br>
+
+---
+
+## **📌 EXTRA CREDIT**
+
+1. El primer ejercicio **`extra`** que te invitamos a desarrollar es un formulario del lado Front-End que le permita a un usuario registrarse en tu aplicación. Estos datos se guardarán automáticamente en la base de datos.
+
+Este es un gran desafío, porque no solo tendrás que conectar tu Servidor con el Cliente, sino que también tendrás que pensar en una lógica del lado Front-End para que el usuario pueda cambiar de vista para poder logearse, y sin que aún tenga acceso a la app.
 
 </br >
 
----
-
-### **👩‍💻 EJERCICIO 2 | Configuración**
-
-En la carpeta raíz de tu Back-End tendrás que ejecutar el comando:
-
-```bash
-    npm init
-```
-
-De esta manera crearás un archivo **`package.json`**. En este solo deberás instalar la librería **nodemon** de la siguiente manera:
-
-```bash
-    npm install nodemon
-```
-
-Una vez hecho esto, dentro del objeto **scripts** tienes que dejar el script **`start`** de la siguiente manera:
-
-```json
-    "start": "nodemon ./src/index.js"
-```
-
-<br />
-
----
-
-### **👩‍💻 EJERCICIO 3 | Servidor**
-
-Dírigete al archivo llamado **`index.js`** que creaste en el ejercicio 1. Dentro de este deberás:
-
-1. Importar **http** desde el módulo **`http`**.
-
-2. A partir de **http** crea y levanta un servidor en el puerto **3001**.
-
-3. Copia y pega la siguiente línea dentro del callback de tu servidor
-
-   ```js
-   res.setHeader('Access-Control-Allow-Origin', '*');
-   ```
-
-4. Crea un condicional que verfique si la **url** incluye el string "**`/rickandmorty/character`**". En el caso de que si lo haga deberás obtener el **id** del personaje que te llega por la **url**. Luego de obtener el **id**, búscalo dentro del archivo **`data.js`** (deberás importar el archivo). Ten en cuenta que el **id** de la url es un string, y los **id** de los personajes son números.
-
-> [**NOTA**]: la url te llegará con la siguiente estructura. Ejemplo: **`/rickandmorty/character/:id`**. Piensa en una lógica que te permita obtener el **id** del final.
-
-5. Envía como respuesta un JSON que contenga al personaje.
-
-<br />
-
----
-
-### **👩‍💻 EJERCICIO 4 | Front & Back**
-
-1. Abre tu proyecto en la carpeta **`Client`** y dirígete al archivo **`App.js`** en el que realizarás un pequeño cambio.
-
-2. Busca tu función **`onSearch`**. Deberás reemplazar la url a la que se le está haciendo la petición:
-
-   -  **URL anitgua**: "**`https://rym2.up.railway.app/api/character/${id}?key={tuApiKey}**".
-   -  **URL por la que debes reemplazar**: "**http://localhost:3001/rickandmorty/character/${id}**".
-
-3. Ahora dirígete a tu componente **`Detail`** . Aquí tienes un **`useEffect`** que también está haciendo una petición a la API, por lo que debemos hacer el mismo cambio que antes:
-
-   -  **URL anitgua**: "**`https://rym2.up.railway.app/api/character/${id}?key={tuApiKey}**".
-   -  **URL por la que debes reemplazar**: "**http://localhost:3001/rickandmorty/character/${id}**".
-
-> **[NOTA]:** recuerda agregar el **id** como parámetro al final.
-
-<br />
-
----
-
-### **👀 ¡COMPROBEMOS NUESTRO TRABAJO!**
-
-Ahora comprobaremos que todo funciona correctamente. Para esto:
-
-1. Abre dos terminales. En una deberás levantar tu proyecto del lado Front-End, y en la otra levantar tu proyecto en el lado Back-End.
-
-2. Una vez que todo esté arriba, intenta utilizar tu aplicación. Trae personajes e ingresa a sus detalles para chequear que no haya ningún error.
-
-> [**NOTA**]: solo podrás buscar a los personajes con id **1**, **2**, **3**, **4** y **5**, ya que estos son los que tienes guardados en tu archivo **`data.js`**.
-
-</br >
-
-<img src="./img/example.gif" alt="" />
+2. Algunos de los tests que realizaste en el módulo 3 ya no te serviran con estas nuevas rutas. Por lo tanto puedes intentar volver a realizar los tests, pero con las nuevas rutas.
